@@ -193,7 +193,7 @@ function App() {
       callUserPlaylists();
       handleGetRecentTracks();
     }
-  },[spotifyAuthToken]);
+  });
 
 
   return (
