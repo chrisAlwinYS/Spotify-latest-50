@@ -36,14 +36,6 @@ function App() {
   let authURL;
 
 
-  useEffect(() => {
-    if (spotifyAuthToken && spotifyAuthToken !== ''){
-      // get user playlists
-      callUserPlaylists();
-      handleGetRecentTracks();
-    }
-  },[spotifyAuthToken]);
-
 
   if (window.location) {
     authURL = `https://accounts.spotify.com/authorize?client_id=3c95ead3ff304c1abec74cb852d12583&redirect_uri=http:%2F%2F${window.location.host}&scope=user-read-recently-played%20playlist-read-private%20playlist-modify-public%20playlist-modify-private&response_type=token&state=123`;
@@ -66,7 +58,7 @@ function App() {
 
     //Used to get the next set of Playlists is needed
     if (data.items && data.items.length === 50) {
-      callUserPlaylists(userPlaylists.length);
+      await callUserPlaylists(userPlaylists.length);
     }
   };
 
@@ -193,6 +185,15 @@ function App() {
     }
     return false;
   }
+
+
+  useEffect(() => {
+    if (spotifyAuthToken && spotifyAuthToken !== ''){
+      // get user playlists
+      callUserPlaylists();
+      handleGetRecentTracks();
+    }
+  },[spotifyAuthToken]);
 
 
   return (
